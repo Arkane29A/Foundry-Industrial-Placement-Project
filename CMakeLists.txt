@@ -16,6 +16,11 @@ enable_testing ()
 add_library(libAddressBook STATIC src/address_book.cpp src/include/address_book.h)
 target_include_directories(libAddressBook PUBLIC src/include)
 
+
+# Add the Google Test library include directory
+include_directories("C:/MinGW/googletest/googletest/include")
+
+
 # Ensure tests are included
 add_subdirectory (test)
 

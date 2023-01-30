@@ -15,6 +15,7 @@ public:
 		std::string phone_number;
 	};
 
+    //Here, I have created a new vector to store the instances of the structs
     std::vector<Entry> AddressContacts;
 
 
@@ -32,13 +33,13 @@ public:
 	std::vector<Entry> sortedByLastName();
 
 	/// Return all matching entries. Implement in address_book.cpp.
-	std::vector<Entry> find(const std::string & name);
+    std::vector<Entry> find(const std::string & name);
 };
 
 //Structs by default do not have a comparison operator; Hence we have overrided == to provide this
-bool operator==(const AddressBook::Entry& lhs, const AddressBook::Entry& rhs)
-{
-    return (lhs.first_name == rhs.first_name) &&
-           (lhs.last_name == rhs.last_name) &&
-           (lhs.phone_number == rhs.phone_number);
-}
+//bool operator==(const AddressBook::Entry& lhs, const AddressBook::Entry& rhs)
+//{
+//    return (lhs.first_name == rhs.first_name) &&
+//           (lhs.last_name == rhs.last_name) &&
+//           (lhs.phone_number == rhs.phone_number);
+//}

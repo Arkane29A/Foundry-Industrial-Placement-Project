@@ -1,6 +1,7 @@
 
 
 #include "include/address_book.h"
+#include "address_book_operators.h"
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
@@ -9,15 +10,15 @@
 void AddressBook::add(AddressBook::Entry person)
 {
 
-
+    //Try block to catch errors
     try
-    {
+    {   //Takes input and adds it to the vector
         AddressContacts.push_back(person);
     }
 
     catch(Entry person)
     {
-
+        //throws error if it arrives
         throw std::runtime_error("Incorrect data format.");
     }
 
@@ -26,19 +27,21 @@ void AddressBook::add(AddressBook::Entry person)
 void AddressBook::remove(AddressBook::Entry person)
 {
 
-
+    //try checks for errors
     try{
-	for(int x = 0; x < AddressContacts.size(); x++)
-    {
-        if (person == AddressContacts[x])
+        //loops through all contacts to compare which one is the correct one
+        for(int x = 0; x < AddressContacts.size(); x++)
         {
-            AddressContacts.erase(AddressContacts.begin() + x);
+            if (person == AddressContacts[x]) //if found, removes the entry
+            {
+                AddressContacts.erase(AddressContacts.begin() + x);
 
+            }
         }
-    }
     }
     catch(Entry person)
     {
+        //Catches errors
         throw std::runtime_error("Incorrect data format");
     }
 
@@ -46,33 +49,36 @@ void AddressBook::remove(AddressBook::Entry person)
 
 std::vector<AddressBook::Entry> AddressBook::sortedByFirstName()
 {
-    try {    std::sort(AddressContacts.begin(), AddressContacts.end(), [](const Entry &a, const Entry &b){
+        //Uses the sort function provided by C++ to organise alphabetically by first name
+        std::sort(AddressContacts.begin(), AddressContacts.end(), [](const Entry &a, const Entry &b){
             return a.first_name < b.first_name;
-        });}
+        });
 
-    catch(std::vector<AddressBook::Entry> AddressBook)
-    {
-        throw std::runtime_error("Empty List or Incorrect data type!");
-    }
+    return  AddressContacts;
 
 
 }
-}
+
 
 std::vector<AddressBook::Entry> AddressBook::sortedByLastName()
 {
 
 
+    //Uses the sort function provided by C++ to organise alphabetically by last name
 
-    try {    std::sort(AddressContacts.begin(), AddressContacts.end(), [](const Entry &a, const Entry &b){
+     std::sort(AddressContacts.begin(), AddressContacts.end(), [](const Entry &a, const Entry &b){
             return a.last_name < b.last_name;
-        });}
+        });
 
-    catch(std::vector<AddressBook::Entry> AddressBook)
-    {
-        throw std::runtime_error("Empty List or Incorrect data type!");
-    }
+    return AddressContacts;
 
+}
+
+//Used as a helper function for the find function; Converts code into lowercase to allow for case-insensitive search
+std::string toLowerCase(std::string input)
+{
+    std::transform(input.begin(), input.end(), input.begin(), ::tolower);
+    return input;
 }
 
 std::vector<AddressBook::Entry> AddressBook::find(const std::string& name)
@@ -80,40 +86,17 @@ std::vector<AddressBook::Entry> AddressBook::find(const std::string& name)
     //output vector is created
     std::vector<Entry> output;
 
-    //try block
-	try
+    //loops through all contacts
+    for (const auto& entry : AddressContacts)
     {
-        
-        for(int i = 0; i<AddressContacts.size(); i++) //Iterates through all current contacts
+        //finds if the first name or the last name is a substring
+        if (toLowerCase(entry.first_name).find(toLowerCase(name)) != std::string::npos ||
+            entry.last_name.find(name) != std::string::npos)
         {
-
-            std::string CompareFirstName = AddressContacts[i].first_name; //retrives first name 
-            std::string CompareSecondName = AddressContacts[i].last_name; //retrives last name
-
-
-            if(name.find(CompareFirstName) != std::string::npos) //checks if it is a substring against first name
-            {
-                output.push_back(AddressContacts[i]); //adds to output vector
-            }
-
-            if(name.find(CompareSecondName) != std::string::npos)
-            {
-                output.push_back(AddressContacts[i]); //adds to output vector
-            }
-
+            //adds to the vector
+            output.push_back(entry);
         }
-
-        return output;
-
-       
     }
 
-    //catches any false data inputs
-     catch(std::string& name)
-        {
-            throw std::runtime_error("Incorrect data format");
-        }
-
-    
-    
+    return output;
 }
