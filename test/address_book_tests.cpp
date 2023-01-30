@@ -138,7 +138,7 @@
 //
 ///// Add more tests here:
 /////
-///// TEST(AddressBookTests, YOUR_TEST_NAME)
+///// TEST(AddressBookTests, YOUR_TEST_NAME
 ///// {
 ///// 	// Perform some test logic
 ///// }
@@ -149,31 +149,7 @@ int main(int argc, char** argv)
 {
 //	::testing::InitGoogleTest(&argc, argv);
 //	return RUN_ALL_TESTS();
-
-    std::string people[][3] = {
-		{"Sally", "Graham", "+44 7700 900297"},
-		{"Phoenix", "Bond", "0161 496 0311"},
-		{"Aaran", "Parks", ""},
-		{"Jayden", "Riddle", "+44 131 496 0609"},
-		{"Adriana", "Paul", "(739) 391-4868"},
-		{"Hamza", "Bo", "+44 131 496 0571"}
-	};
-	AddressBook addressBook;
-
-    for (auto person : people)
-    {
-        AddressBook::Entry entry = { person[0], person[1], person[2] };
-        addressBook.add(entry);
-//        std::cout<< entry.first_name;
-    }
-
-    std::vector<AddressBook::Entry> test = addressBook.find("");
-
-    for (auto x : test)
-    {
-        std::cout<<x.first_name;
-        std::cout<<x.last_name;
+//
 
 
-    }
 };
